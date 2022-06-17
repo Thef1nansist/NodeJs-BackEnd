@@ -1,27 +1,16 @@
-const { Type } = require("../models/models");
-const ApiError = require("../error/ApiError");
+const TypeServices = require("../Services/typeService");
 
 class TypeController {
   async create(req, resp) {
-    const { name } = req.body;
-    const type = await Type.create({ name });
-
-    return resp.json(type);
+    return await TypeServices.create(req, resp);
   }
   
   async getAll(req, resp) {
-    const types = await Type.findAll();
-
-    return resp.json(types);
+    return await TypeServices.getTypes(req, resp);
   }
 
-  async removeItem(req, res) {
-    const { id } = req.params;
-    const device = await Type.destroy({
-      where: { id },
-    });
-
-    return res.json(device);
+  async removeItem(req, resp) {
+    return await TypeServices.removeType(req, resp);
   }
 }
 
